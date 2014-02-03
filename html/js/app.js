@@ -37,9 +37,13 @@ var AM = window.AM || {};
 	AM.questionCreate = function(el) {
 		alert('yeah baby');
 	}
-
 	
+	
+}());
+
+
 	function onLoad() {
+		alert('onLoad triggered');
         document.addEventListener("deviceready", onDeviceReady, false);
     }
 
@@ -47,14 +51,12 @@ var AM = window.AM || {};
     //
     function onDeviceReady() {
         // Register the event listener
+		alert('onDeviceReady triggered');
         document.addEventListener("backbutton", onBackKeyDown, false);
     }
 
     // Handle the back button
     //
     function onBackKeyDown() {
-		alert('back off pal');
+		alert('onBackKeyDown triggered');
 	}
-	
-	
-}());
