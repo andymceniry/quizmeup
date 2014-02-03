@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/core.css">
 		<link rel="stylesheet" href="css/app.css">
+		<script src="js/cordova.js" ></script>
 		<script src="js/jquery-1.10.2.min.js" ></script>
 		<script src="js/app.js" ></script>			
     </head>
@@ -16,14 +17,50 @@
 		
 		<div class="page cf" id="page-home">
 			<h1>QUIZ ME UP</h1>
-			<div class="button" id="button-menu-quiz" data-target-ref="quiz">TAKE QUIZ</div>
-			<div class="button" id="button-menu-add">ADD QUESTION</div>
-			<div class="button" id="button-menu-edit">EDIT QUESTIONS</div>
+			<div class="button rt2" data-target-ref="quiz-question">TAKE QUIZ</div>
+			<div class="button rb2" data-target-ref="question-add">ADD QUESTION</div>
+			<div class="button rb1" data-target-ref="question-search">EDIT QUESTIONS</div>
 		</div>
 		
-		<div class="page cf" id="page-quiz">
+		<div class="page cf" id="page-quiz-settings">
 			<h1>QUIZ ME UP 2</h1>
-			<div class="button" id="button-quiz-menu" data-target-ref="home">RETURN TO MENU</div>
+			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
+		</div>
+		
+		<div class="page cf" id="page-quiz-question">
+			<h1>QUIZ ME UP 2</h1>
+			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
+		</div>
+		
+		<div class="page cf" id="page-quiz-answer">
+			<h1>QUIZ ME UP 3</h1>
+			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
+		</div>
+		
+		<div class="page cf" id="page-quiz-done">
+			<h1>QUIZ ME UP 4</h1>
+			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
+		</div>
+		
+		<div class="page cf" id="page-question-search">
+			<h1>FIND QUESTION</h1>
+			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
+		</div>
+		
+		<div class="page cf" id="page-question-search-results">
+			<h1>SEARCH RESULTS</h1>
+			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
+		</div>
+		
+		<div class="page cf" id="page-question-add">
+			<h1>ADD QUESTION</h1>
+			<div class="button rb2" data-target-func="questionCreate">SAVE QUESTION</div>
+			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
+		</div>
+		
+		<div class="page cf" id="page-question-edit">
+			<h1>EDIT QUESTION</h1>
+			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
 		</div>
 
     </body>

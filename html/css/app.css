@@ -1,7 +1,6 @@
-/*  MENU  */
-#button-menu-quiz { top:100px; }
-#button-menu-add { bottom:100px; }
-#button-menu-edit { bottom:40px; }
+/*  GENERIC  */
+.rt1 { top:40px; }
+.rt2 { top:100px; }
+.rb1 { bottom:40px; }
+.rb2 { bottom:100px; }
 
-/*  QUIZ  */
-#button-quiz-menu { bottom:40px; }

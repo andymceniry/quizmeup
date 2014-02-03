@@ -13,3 +13,7 @@ h1 { position:absolute; width:100%; left:0; top:20px; text-align:center; }
 
 /*  BUTTONS  */
 .button { padding:5px; height:40px; background:#fff; color:#636363; width:200px; position:absolute; bottom:50px; left:50%; margin-left:-100px; text-align:center; line-height:30px; border:1px solid #bbb; border-radius:5px; cursor:pointer;}
+.rt1 { top:40px; }
+.rt2 { top:100px; }
+.rb1 { bottom:40px; }
+.rb2 { bottom:100px; }
