@@ -69,5 +69,7 @@ var AM = window.AM || {};
 			var previousPage = AM.history.pop();
 			AM.showPage(previousPage);
 			return false;
+		} else {
+			alert('exit');
 		}
 	}
