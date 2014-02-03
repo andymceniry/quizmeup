@@ -5,6 +5,9 @@ var AM = window.AM || {};
 (function () {
 
 	'use strict';
+	
+	AM.history = [];
+	AM.history.push('home');
 
 	AM.eventHandlerForClosingOverlays = (function () {
         $(function () {
@@ -26,6 +29,8 @@ var AM = window.AM || {};
 
 
 	AM.showPage = function( pageRef ) {
+		AM.history.push(pageRef);
+		console.log(AM.history);
 		$('.page').hide();
 		$('#page-' + pageRef).show();
 	}
@@ -58,6 +63,11 @@ var AM = window.AM || {};
     // Handle the back button
     //
     function onBackKeyDown() {
-		alert('onBackKeyDown triggered');
+		var currentPage = AM.history.pop();
+		if( currentPage === 'home' ) {
+			alert('exit');
+		} else {
+			alert(currentPage);
+		}
 		return false;
 	}
