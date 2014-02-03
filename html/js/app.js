@@ -64,6 +64,7 @@ var AM = window.AM || {};
     //
     function onBackKeyDown() {
 		var currentPage = AM.history.pop();
+		alert(currentPsge);
 		if( currentPage !== 'home' ) {
 			var previousPage = AM.history.pop();
 			AM.showPage(previousPage);
