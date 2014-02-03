@@ -64,10 +64,9 @@ var AM = window.AM || {};
     //
     function onBackKeyDown() {
 		var currentPage = AM.history.pop();
-		if( currentPage === 'home' ) {
-			alert('exit');
-		} else {
-			alert(currentPage);
+		if( currentPage !== 'home' ) {
+			var previousPage = AM.history.pop();
+			AM.showPage(previousPage);
+			return false;
 		}
-		return false;
 	}
