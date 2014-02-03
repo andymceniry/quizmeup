@@ -70,6 +70,6 @@ var AM = window.AM || {};
 			AM.showPage(previousPage);
 			return false;
 		} else {
-			alert('exit');
+			navigator.app.exitApp();
 		}
 	}
