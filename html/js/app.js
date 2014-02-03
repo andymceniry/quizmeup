@@ -43,7 +43,7 @@ var AM = window.AM || {};
 
 
 	function onLoad() {
-		alert('onLoad triggered');
+		//alert('onLoad triggered');
         document.addEventListener("deviceready", onDeviceReady, false);
     }
 
