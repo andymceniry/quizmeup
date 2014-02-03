@@ -6,21 +6,25 @@
         <title>Display Info</title>
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <link rel="stylesheet" href="css/normalize.min.css">
-        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="css/core.css">
+		<link rel="stylesheet" href="css/app.css">
 		<script src="js/jquery-1.10.2.min.js" ></script>
-		<script src="js/app.js" ></script>		
+		<script src="js/app.js" ></script>			
     </head>
 
-    <body style="">
+    <body>
+		
+		<div class="page cf" id="page-home">
+			<h1>QUIZ ME UP</h1>
+			<div class="button" id="button-menu-quiz" data-target-ref="quiz">TAKE QUIZ</div>
+			<div class="button" id="button-menu-add">ADD QUESTION</div>
+			<div class="button" id="button-menu-edit">EDIT QUESTIONS</div>
+		</div>
+		
+		<div class="page cf" id="page-quiz">
+			<h1>QUIZ ME UP 2</h1>
+			<div class="button" id="button-quiz-menu" data-target-ref="home">RETURN TO MENU</div>
+		</div>
 
-        <img src="desktop-lofou.jpg" style="max-width:100%;"/>
-        <!--<img src="texts.png" style="max-width:100%;"/>-->
-		<div id="infobar"></div>
-        <div class="iconholder" id="icon1"><div class="icon"></div><p>BBC Weather</p></div>
-        <div class="iconholder" id="icon2"><div class="icon"></div><p>Calendar</p></div>
-        <div class="iconholder" id="icon3"><div class="icon"></div><p>Gallery</p></div>
-        <div class="iconholder" id="icon4"><div class="icon"></div><p>Train Times UK</p></div>
-
-        <p id="testtext">Yo! What night you at goals?</p>
     </body>
 </html>

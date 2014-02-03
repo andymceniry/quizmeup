@@ -1,0 +1,15 @@
+/*  LAYOUT  */
+html, body { width:360px; height:567px; font-size:14px; color:#333; } 
+.page { background:#eee; width:100%; min-height:100%; position:relative; display:none; }
+#page-home { display:block; }
+
+/*  TYPOGROPHY  */
+h1 { position:absolute; width:100%; left:0; top:20px; text-align:center; }
+
+/*  ICONS  */
+.iconholder { position:absolute; height:90px; width:74px; }
+.icon { height:60px; width:60px; margin:7px; background:rgba(0,0,0,0.25); }
+.iconholder p { color:#fff; margin: 0; line-height:11px; text-align:center; font-size:72%; }
+
+/*  BUTTONS  */
+.button { padding:5px; height:40px; background:#fff; color:#636363; width:200px; position:absolute; bottom:50px; left:50%; margin-left:-100px; text-align:center; line-height:30px; border:1px solid #bbb; border-radius:5px; cursor:pointer;}
