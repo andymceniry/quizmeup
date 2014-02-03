@@ -48,23 +48,17 @@ var AM = window.AM || {};
 
 
 	function onLoad() {
-		//alert('onLoad triggered');
         document.addEventListener("deviceready", onDeviceReady, false);
     }
 
     // device APIs are available
-    //
     function onDeviceReady() {
-        // Register the event listener
-		alert('onDeviceReady triggered');
         document.addEventListener("backbutton", onBackKeyDown, false);
     }
 
     // Handle the back button
-    //
     function onBackKeyDown() {
 		var currentPage = AM.history.pop();
-		alert('xxx'+currentPage+'xxx');
 		if( currentPage != "home" ) {
 			var previousPage = AM.history.pop();
 			AM.showPage(previousPage);
