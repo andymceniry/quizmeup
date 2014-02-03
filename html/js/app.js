@@ -59,4 +59,5 @@ var AM = window.AM || {};
     //
     function onBackKeyDown() {
 		alert('onBackKeyDown triggered');
+		return false;
 	}
