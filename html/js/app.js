@@ -1,26 +1,44 @@
-/*global $, window*/
+/*global $*/
 
 var AM = window.AM || {};
 
 (function () {
 
 	'use strict';
-	
+
 	AM.history = [];
 	AM.history.push('home');
 
-	AM.eventHandlerForClosingOverlays = (function () {
+	AM.eventHandlerForButtons = (function () {
         $(function () {
 			$('body').on('click', '.button', function () {
 				var btn = $(this),
 					pageRef = btn.data('target-ref'),
 					funcRef = btn.data('target-func');
-				if (typeof (pageRef) !== 'undefined') {
-					AM.showPage( pageRef );
+				if (pageRef !== undefined) {
+					AM.showPage(pageRef);
 					return false;
 				}
-				if (typeof(funcRef) !== 'undefined') {
-					AM.runFunc( funcRef, btn );
+				if (funcRef !== undefined) {
+					AM.runFunc(funcRef, btn);
+					return false;
+				}
+			});
+        });
+    }());
+
+	AM.eventHandlerForJsLinks = (function () {
+        $(function () {
+			$('body').on('click', '.jslink', function () {
+				var btn = $(this),
+					pageRef = btn.data('target-ref'),
+					funcRef = btn.data('target-func');
+				if (pageRef !== 'undefined') {
+					AM.showPage(pageRef);
+					return false;
+				}
+				if (funcRef !== 'undefined') {
+					AM.runFunc(funcRef, btn);
 					return false;
 				}
 			});
@@ -28,42 +46,20 @@ var AM = window.AM || {};
     }());
 
 
-	AM.showPage = function( pageRef ) {
+	AM.showPage = function (pageRef) {
 		AM.history.push(pageRef);
 		console.log(AM.history);
 		$('.page').hide();
 		$('#page-' + pageRef).show();
-	}
+	};
 
-	AM.runFunc = function( funcRef, el ) {
+	AM.runFunc = function (funcRef, el) {
 		AM[funcRef]();
-	}
-	
-	AM.questionCreate = function(el) {
+	};
+
+	AM.questionCreate = function (el) {
 		alert('yeah baby');
-	}
-	
-	
+	};
+
+
 }());
-
-
-	function onLoad() {
-        document.addEventListener("deviceready", onDeviceReady, false);
-    }
-
-    // device APIs are available
-    function onDeviceReady() {
-        document.addEventListener("backbutton", onBackKeyDown, false);
-    }
-
-    // Handle the back button
-    function onBackKeyDown() {
-		var currentPage = AM.history.pop();
-		if( currentPage != "home" ) {
-			var previousPage = AM.history.pop();
-			AM.showPage(previousPage);
-			return false;
-		} else {
-			navigator.app.exitApp();
-		}
-	}
