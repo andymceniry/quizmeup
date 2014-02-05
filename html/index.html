@@ -55,16 +55,26 @@
 		
 		<div class="page cf" id="page-quiz-question">
 			<h1>QUIZ ME UP 2</h1>
-			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
+			<div class="quiz-question-question-holder"></div>
+			<div class="button rb1" data-target-ref="quiz-answer">SHOW ANSWER</div>
 		</div>
 		
 		<div class="page cf" id="page-quiz-answer">
 			<h1>QUIZ ME UP 3</h1>
-			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
+			<div class="quiz-question-question-holder"></div>
+			<div class="quiz-question-answer-holder"></div>
+			<div class="holder">
+				<p>How did you get on?</p>
+			</div>
+			<div class="buttonholder2 cf">
+				<div class="button" data-target-ref="quiz-question" data-target-func="questionAnsweredCorrectly">CORRECT</div>
+				<div class="button" data-target-ref="quiz-question" data-target-func="questionAnsweredIncorrectly">INCORRECT</div>
+			</div>
+			<div class="button" data-target-ref="home">RETURN TO MENU</div>
 		</div>
 		
 		<div class="page cf" id="page-quiz-done">
-			<h1>QUIZ ME UP 4</h1>
+			<h1>QUIZ DONE</h1>
 			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
 		</div>
 		
