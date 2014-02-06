@@ -21,10 +21,10 @@ var AM = window.AM || {};
 				var btn = $(this),
 					pageRef = btn.data('target-ref'),
 					funcRef = btn.data('target-func');
-				if (funcRef !== undefined) { //console.log('running function: ' + funcRef);
+				if (funcRef !== undefined) {
 					AM.runFunc(funcRef, btn);
 				}
-				if (pageRef !== undefined) { //console.log('jumping to page: ' + pageRef);
+				if (pageRef !== undefined) {
 					AM.showPage(pageRef, btn);
 				}
 				return false;
@@ -38,10 +38,10 @@ var AM = window.AM || {};
 				var btn = $(this),
 					pageRef = btn.data('target-ref'),
 					funcRef = btn.data('target-func');
-				if (funcRef !== 'undefined') { console.log('running function: ' + funcRef);
+				if (funcRef !== 'undefined') {
 					AM.runFunc(funcRef, btn);
 					}
-				if (pageRef !== 'undefined') { console.log('jumping to page: ' + pageRef);
+				if (pageRef !== 'undefined') {
 					AM.showPage(pageRef, btn);
 					}
 				return false;
@@ -52,7 +52,6 @@ var AM = window.AM || {};
 
 	AM.showPage = function (pageRef, el) {
 		AM.history.push(pageRef);
-		console.log(AM.history);
 		$('.page').hide();
 		$('#page-' + pageRef).show();
 		AM.runPageLoadFunction(pageRef, el);
@@ -69,7 +68,6 @@ var AM = window.AM || {};
 			AM.prepareTest();
 			break;
 		case 'quiz-question':
-			console.log(AM.currentQuestion + ' of ' + AM.totalQuestions);
 			if (AM.currentQuestion < AM.totalQuestions) {
 				AM.displayQuestion(AM.currentQuestion);
 			} else {
@@ -100,7 +98,7 @@ var AM = window.AM || {};
 			alert('Need question & answer filled in');
 			return false;
 		}
-		AM.addQuestion(this.currentEditQID, QA.Q, QA.A);
+		AM.addQuestion(AM.currentEditQID, QA.Q, QA.A);
 		AM.showPage('home');
 	};
 
@@ -117,33 +115,26 @@ var AM = window.AM || {};
 			return false;
 		}
 		AM.searchResults = [];
-		//AM.questionIDs = [];
 		$('#question-search-results-holder').html('');
 		for (iLoop = 0; iLoop < localStorage.length; iLoop = iLoop + 1) {
 			QA = JSON.parse(localStorage.getItem(localStorage.key(iLoop)));
 			Q2 = QA.Q.toLowerCase().split(searchCriteria);
 			A2 = QA.A.toLowerCase().split(searchCriteria);
 			if (Q2.length > 1 || A2.length > 1) {
-				qid = localStorage.key(iLoop);
+				qid = parseInt(localStorage.key(iLoop).split('question-').join(''), 10);
 				AM.searchResults.push(QA);
 				HTML = HTML + '<div class="question-search-results-item" data-qid="' + qid + '">' + QA.Q + '</div>';
 			}
 		}
 		$('#question-search-results-holder').append(HTML);
-
-
 		$('.question-search-results-item').click(function () {
 			var qid = $(this).data('qid'),
-				q = JSON.parse(localStorage.getItem(qid));
-			console.log(q);
+				q = JSON.parse(localStorage.getItem('question-' + qid));
 			$('#question-text-edit').val(q.Q);
 			$('#answer-text-edit').val(q.A);
-			this.currentEditQID = qid;
+			AM.currentEditQID = qid;
 			AM.showPage('question-edit');
 		});
-
-
-		console.log(AM.searchResults);
 		AM.showPage('question-search-results');
 	};
 
@@ -157,9 +148,15 @@ var AM = window.AM || {};
 			AM.questions[qid] = JSON.parse(localStorage.getItem(localStorage.key(i)));
 			AM.questionIDs[i] = qid;
 		}
-		console.log('IDs', AM.questionIDs);
+        if (AM.questionIDs.length < 1) {
+            var item = {};
+            item.Q = 'What is the capital of Spain?';
+            item.A = 'Madrid';
+            localStorage.setItem('question-1', JSON.stringify(item));
+            AM.prepareTest();
+            return false;
+        }
 		AM.questionIDs.sort(function (a, b) {return a - b; });
-		console.log('IDs', AM.questionIDs);
 		AM.currentQuestion = 0;
 		AM.totalQuestions = i;
 		console.log(AM.questions);
@@ -179,7 +176,6 @@ var AM = window.AM || {};
 			newID = (10000000000000 * (level + 1)) + (new Date()).getTime();
 		localStorage.removeItem('question-' + oldID);
 		AM.addQuestion(newID, QA.Q, QA.A);
-		console.log('correct', newID);
 		AM.currentQuestion = AM.currentQuestion + 1;
 	};
 
@@ -189,7 +185,6 @@ var AM = window.AM || {};
 			newID = (new Date()).getTime();
 		localStorage.removeItem('question-' + oldID);
 		AM.addQuestion(newID, QA.Q, QA.A);
-		console.log('incorrect', AM.getLevelFromID(oldID));
 		AM.currentQuestion = AM.currentQuestion + 1;
 	};
 
@@ -235,14 +230,5 @@ var AM = window.AM || {};
 		}
 		return 10;
 	};
-
-
-	$('body').on('click', '.question-search-results-item', function () {
-		console.log('q');
-		var qid = $(this).data('qid'),
-			q = JSON.parse(localStorage.getItem(qid));
-		console.log(q);
-//	question-edit
-	});
 
 }());
