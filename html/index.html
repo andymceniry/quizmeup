@@ -80,22 +80,46 @@
 		
 		<div class="page cf" id="page-question-search">
 			<h1>FIND QUESTION</h1>
-			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
+			<div class="holder inputholder">
+				<p><label for="search-text">Search for:</label>
+				<input id="search-text"/></p>
+			</div>
+			<div class="button" data-target-func="processSearch">FIND QUESTION</div>
+			<div class="button" data-target-ref="home">RETURN TO MENU</div>
 		</div>
 		
 		<div class="page cf" id="page-question-search-results">
 			<h1>SEARCH RESULTS</h1>
+			<div id="question-search-results-holder">
+			</div>
 			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
 		</div>
 		
 		<div class="page cf" id="page-question-add">
 			<h1>ADD QUESTION</h1>
-			<div class="button rb2" data-target-func="questionCreate">SAVE QUESTION</div>
-			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
+			<div class="holder textareaholder">
+				<p><label for="question-text-add">Question:</label>
+				<textarea id="question-text-add"></textarea></p>
+			</div>
+			<div class="holder textareaholder">
+				<p><label for="answer-text-add">Answer:</label>
+				<textarea id="answer-text-add"></textarea></p>
+			</div>
+			<div class="button" data-target-func="questionCreate">SAVE QUESTION</div>
+			<div class="button" data-target-ref="home">RETURN TO MENU</div>
 		</div>
 		
 		<div class="page cf" id="page-question-edit">
 			<h1>EDIT QUESTION</h1>
+			<div class="holder textareaholder">
+				<p><label for="question-text-edit">Question:</label>
+				<textarea id="question-text-edit"></textarea></p>
+			</div>
+			<div class="holder textareaholder">
+				<p><label for="answer-text-edit">Answer:</label>
+				<textarea id="answer-text-edit"></textarea></p>
+			</div>
+			<div class="button" data-target-func="questionUpdate">UPDATE QUESTION</div>
 			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
 		</div>
 

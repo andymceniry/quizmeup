@@ -20,3 +20,16 @@ h1 { width:100%; left:0; top:20px; text-align:center; }
 
 /*  LINK  */
 .faxulink { cursor:hover; }
+
+
+
+/*  FORMS  */
+.inputholder { margin:10px 0; }
+.inputholder p { margin:0 40px; }
+.inputholder p label { width: 100%; display: block; text-align: left; padding:5px }
+.inputholder p input { width: 100%; display: block; text-align: left; padding:5px; height:30px; }
+
+.textareaholder { margin:10px 0; }
+.textareaholder p { margin:0 40px; }
+.textareaholder p label { width: 100%; display: block; text-align: left; padding:5px }
+.textareaholder p textarea { width: 100%; display: block; text-align: left; padding:5px; min-height:100px; }
