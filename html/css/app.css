@@ -1,3 +1,4 @@
 .quiz-question-question-holder { width:300px; margin:10px 30px; padding:10px; text-align:center; background:#ddd; }
 .quiz-question-answer-holder { width:300px; margin:10px 30px; padding:10px; text-align:center; background:#ddd; }
-.question-search-results-item { width:300px; margin:10px 30px; padding:10px; text-align:center; background:#ddd; cursor:pointer; }
+.question-search-results-item { width:300px; margin:10px 30px; padding:10px; text-align:center; background:#ddd; cursor:pointer; font-size:200%;}
+.quiz-review-item { width:300px; margin:10px 30px; padding:10px; text-align:center; background:#ddd; cursor:pointer; }

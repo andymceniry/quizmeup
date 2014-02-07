@@ -38,12 +38,12 @@ var AM = window.AM || {};
 				var btn = $(this),
 					pageRef = btn.data('target-ref'),
 					funcRef = btn.data('target-func');
-				if (funcRef !== 'undefined') {
+				if (funcRef !== undefined) {
 					AM.runFunc(funcRef, btn);
-					}
-				if (pageRef !== 'undefined') {
+				}
+				if (pageRef !== undefined) {
 					AM.showPage(pageRef, btn);
-					}
+				}
 				return false;
 			});
         });
@@ -71,10 +71,38 @@ var AM = window.AM || {};
 			if (AM.currentQuestion < AM.totalQuestions) {
 				AM.displayQuestion(AM.currentQuestion);
 			} else {
+				AM.questionReview();
 				AM.showPage('quiz-done');
 			}
 			break;
 		}
+	};
+
+	AM.questionReview = function () {
+		var i,
+			qid,
+			level,
+			HTML = '';
+		AM.questionLevels = [];
+		for (i = 0; i <= 10; i = i + 1) {
+			AM.questionLevels[i] = 0;
+		}
+		for (i = 0; i < localStorage.length; i = i + 1) {
+			qid = parseInt(localStorage.key(i).split('question-').join(''), 10);
+			level = AM.getLevelFromID(qid);
+			AM.questionLevels[level] = AM.questionLevels[level] + 1;
+		}
+		for (i = 0; i <= 10; i = i + 1) {
+			if (AM.questionLevels[i] > 0) {
+				HTML = HTML + '<div class="quiz-review-item">';
+				HTML = HTML + 'Level ' + i + ': ' + AM.questionLevels[i] + ' question';
+				if (AM.questionLevels[i] !== 1) {
+					HTML = HTML + 's';
+				}
+				HTML = HTML + '</div>';
+			}
+		}
+		$('#quiz-review-holder').html(HTML);
 	};
 
 	AM.questionCreate = function (el) {
@@ -140,7 +168,8 @@ var AM = window.AM || {};
 
 	AM.prepareTest = function () {
 		var i,
-			qid;
+			qid,
+			item = {};
 		AM.questions = [];
 		AM.questionIDs = [];
 		for (i = 0; i < localStorage.length; i = i + 1) {
@@ -149,7 +178,6 @@ var AM = window.AM || {};
 			AM.questionIDs[i] = qid;
 		}
         if (AM.questionIDs.length < 1) {
-            var item = {};
             item.Q = 'What is the capital of Spain?';
             item.A = 'Madrid';
             localStorage.setItem('question-1', JSON.stringify(item));
@@ -159,7 +187,6 @@ var AM = window.AM || {};
 		AM.questionIDs.sort(function (a, b) {return a - b; });
 		AM.currentQuestion = 0;
 		AM.totalQuestions = i;
-		console.log(AM.questions);
 	};
 
 

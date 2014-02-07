@@ -19,6 +19,9 @@
 		<div class="page cf" id="page-home">
 			<h1>QUIZ ME UP</h1>
 			<div class="button rt2" data-target-ref="quiz-question">TAKE QUIZ</div>
+			<div class="holder">
+				<p class="jslink" data-target-ref="quiz-done" data-target-func="questionReview">view quiz overview to date</p>
+			</div>
 			<div class="button rb2" data-target-ref="question-add">ADD QUESTION</div>
 			<div class="button rb1" data-target-ref="question-search">EDIT QUESTIONS</div>
 		</div>
@@ -47,7 +50,9 @@
 
 
 		<div class="page cf" id="page-quiz-done">
-			<h1>QUIZ DONE</h1>
+			<h1>QUIZ OVERVIEW</h1>
+			<div id="quiz-review-holder">
+			</div>
 			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
 		</div>
 
