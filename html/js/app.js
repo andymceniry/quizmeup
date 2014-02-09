@@ -15,6 +15,12 @@ var AM = window.AM || {};
 	AM.history = [];
 	AM.history.push('home');
 
+	
+	AM.init = function () {
+		AM.prepareTest();
+		AM.moveToBottom('home')
+	};
+	
 	AM.eventHandlerForButtons = (function () {
         $(function () {
 			$('body').on('click', '.button', function () {
@@ -50,10 +56,11 @@ var AM = window.AM || {};
     }());
 
 
-	AM.showPage = function (pageRef, el) {
+	AM.showPage = function (pageRef, el) {;
 		AM.history.push(pageRef);
 		$('.page').hide();
 		$('#page-' + pageRef).show();
+		AM.moveToBottom(pageRef)
 		AM.runPageLoadFunction(pageRef, el);
 	};
 
@@ -74,6 +81,12 @@ var AM = window.AM || {};
 				AM.questionReview();
 				AM.showPage('quiz-done');
 			}
+			break;
+		case 'question-add':
+			$('#search-text').focus();
+			break;
+		case 'question-search':
+			$('#question-text-add').focus();
 			break;
 		}
 	};
@@ -215,7 +228,7 @@ var AM = window.AM || {};
 		AM.currentQuestion = AM.currentQuestion + 1;
 	};
 
-	AM.prepareTest();
+	
 
 	AM.addQuestion = function (id, question, answer) {
 		var item = {};

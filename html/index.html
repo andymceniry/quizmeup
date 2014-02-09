@@ -22,15 +22,20 @@
 			<div class="holder">
 				<p class="jslink" data-target-ref="quiz-done" data-target-func="questionReview">view quiz overview to date</p>
 			</div>
-			<div class="button rb2" data-target-ref="question-add">ADD QUESTION</div>
-			<div class="button rb1" data-target-ref="question-search">EDIT QUESTIONS</div>
+			<div class="movetobottom">
+				<div class="button rb2" data-target-ref="question-add">ADD QUESTION</div>
+				<div class="button" data-target-ref="question-search">EDIT QUESTIONS</div>
+			</div>
 		</div>
 
 
 		<div class="page cf" id="page-quiz-question">
-			<h1>QUIZ ME UP 2</h1>
+			<h1>QUIZ ME UP</h1>
 			<div class="quiz-question-question-holder"></div>
-			<div class="button rb1" data-target-ref="quiz-answer">SHOW ANSWER</div>
+			<div class="button" data-target-ref="quiz-answer">SHOW ANSWER</div>
+			<div class="movetobottom">
+				<div class="button" data-target-ref="home">RETURN TO MENU</div>
+			</div>
 		</div>
 
 		
@@ -45,7 +50,9 @@
 				<div class="button" data-target-ref="quiz-question" data-target-func="questionAnsweredCorrectly">CORRECT</div>
 				<div class="button" data-target-ref="quiz-question" data-target-func="questionAnsweredIncorrectly">INCORRECT</div>
 			</div>
-			<div class="button" data-target-ref="home">RETURN TO MENU</div>
+			<div class="movetobottom">
+				<div class="button" data-target-ref="home">RETURN TO MENU</div>
+			</div>
 		</div>
 
 
@@ -53,7 +60,9 @@
 			<h1>QUIZ OVERVIEW</h1>
 			<div id="quiz-review-holder">
 			</div>
-			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
+			<div class="movetobottom">
+				<div class="button" data-target-ref="home">RETURN TO MENU</div>
+			</div>
 		</div>
 
 
@@ -64,15 +73,19 @@
 				<input id="search-text"/></p>
 			</div>
 			<div class="button" data-target-func="processSearch">FIND QUESTIONS</div>
-			<div class="button" data-target-ref="home">RETURN TO MENU</div>
+			<div class="movetobottom">
+				<div class="button" data-target-ref="home">RETURN TO MENU</div>
+			</div>
 		</div>
 
 
 		<div class="page cf" id="page-question-search-results">
 			<h1>SEARCH RESULTS</h1>
-			<div id="question-search-results-holder">
-			</div>
-			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
+			<div id="question-search-results-holder"></div>
+			<div class="movetobottom">
+				<div class="button" data-target-ref="question-search">BACK TO SEARCH</div>
+				<div class="button" data-target-ref="home">RETURN TO MENU</div>
+			</div>	
 		</div>
 
 
@@ -87,7 +100,9 @@
 				<textarea id="answer-text-add"></textarea></p>
 			</div>
 			<div class="button" data-target-func="questionCreate">SAVE QUESTION</div>
-			<div class="button" data-target-ref="home">RETURN TO MENU</div>
+			<div class="movetobottom">
+				<div class="button" data-target-ref="home">RETURN TO MENU</div>
+			</div>
 		</div>
 
 
@@ -102,7 +117,9 @@
 				<textarea id="answer-text-edit"></textarea></p>
 			</div>
 			<div class="button" data-target-func="questionUpdate">UPDATE QUESTION</div>
-			<div class="button rb1" data-target-ref="home">RETURN TO MENU</div>
+			<div class="movetobottom">
+				<div class="button" data-target-ref="home">RETURN TO MENU</div>
+			</div>
 		</div>
 
     </body>

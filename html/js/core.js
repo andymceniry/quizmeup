@@ -21,8 +21,17 @@ var AM = window.AM || {};
 		navigator.app.exitApp();
 	};
 
+	AM.moveToBottom = function (pageRef) {
+		var page = $('#page-' + pageRef),
+			el = $('.movetobottom', page),
+			elH = el.height() + 30;
+		el.css('position','absolute').css('bottom','10px');
+		page.css('padding-bottom',elH+'px');
+	};
+	
 }());
 
 function onLoad() {
 	document.addEventListener("deviceready", AM.onDeviceReady, false);
+	AM.init();
 }
