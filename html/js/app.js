@@ -83,10 +83,10 @@ var AM = window.AM || {};
 			}
 			break;
 		case 'question-add':
-			$('#search-text').focus();
+			$('#question-text-add').focus();
 			break;
 		case 'question-search':
-			$('#question-text-add').focus();
+			$('#search-text').focus();
 			break;
 		}
 	};
@@ -141,6 +141,15 @@ var AM = window.AM || {};
 		}
 		AM.addQuestion(AM.currentEditQID, QA.Q, QA.A);
 		AM.showPage('home');
+	};
+	
+	AM.questionDelete = function () {
+		var bDeleteConfirmed = confirm('Delete this question?');
+		if (bDeleteConfirmed === true) {
+			localStorage.removeItem('question-' + AM.currentEditQID);	
+			AM.showPage('question-search');
+		}
+		return false;
 	};
 
 	AM.processSearch = function () {
