@@ -152,6 +152,8 @@ var AM = window.AM || {};
 			return false;
 		}
 		AM.addQuestion(newID, QA.Q, QA.A);
+        $('#question-text-add').val('');
+		$('#answer-text-add').val('');
 		AM.showPage('home');
 	};
 
@@ -200,6 +202,9 @@ var AM = window.AM || {};
 				HTML = HTML + '<div class="question-search-results-item" data-qid="' + qid + '">' + QA.Q + '</div>';
 			}
 		}
+        if (HTML === '') {
+            HTML = HTML + '<div class="holder"><p>No questions found macthing "' + searchCriteria + '"</p></div>';
+        }
 		$('#question-search-results-holder').append(HTML);
 		$('.question-search-results-item').click(function () {
 			var qid = $(this).data('qid'),
@@ -238,6 +243,8 @@ var AM = window.AM || {};
 
 	AM.displayQuestion = function (id) {
 		var QA = AM.questions[AM.questionIDs[id]];
+        QA.Q = QA.Q.split('\n').join('<br/>');
+        QA.A = QA.A.split('\n').join('<br/>');
 		$('.quiz-question-question-holder').html(QA.Q);
 		$('.quiz-question-answer-holder').html(QA.A);
 	};
