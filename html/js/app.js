@@ -15,12 +15,12 @@ var AM = window.AM || {};
 	AM.history = [];
 	AM.history.push('home');
 
-	
+
 	AM.init = function () {
 		AM.prepareTest();
-		AM.moveToBottom('home')
+		AM.moveToBottom('home');
 	};
-	
+
 	AM.eventHandlerForButtons = (function () {
         $(function () {
 			$('body').on('click', '.button', function () {
@@ -56,11 +56,11 @@ var AM = window.AM || {};
     }());
 
 
-	AM.showPage = function (pageRef, el) {;
+	AM.showPage = function (pageRef, el) {
 		AM.history.push(pageRef);
 		$('.page').hide();
 		$('#page-' + pageRef).show();
-		AM.moveToBottom(pageRef)
+		AM.moveToBottom(pageRef);
 		AM.runPageLoadFunction(pageRef, el);
 	};
 
@@ -142,11 +142,11 @@ var AM = window.AM || {};
 		AM.addQuestion(AM.currentEditQID, QA.Q, QA.A);
 		AM.showPage('home');
 	};
-	
+
 	AM.questionDelete = function () {
 		var bDeleteConfirmed = confirm('Delete this question?');
 		if (bDeleteConfirmed === true) {
-			localStorage.removeItem('question-' + AM.currentEditQID);	
+			localStorage.removeItem('question-' + AM.currentEditQID);
 			AM.showPage('question-search');
 		}
 		return false;
@@ -236,8 +236,6 @@ var AM = window.AM || {};
 		AM.addQuestion(newID, QA.Q, QA.A);
 		AM.currentQuestion = AM.currentQuestion + 1;
 	};
-
-	
 
 	AM.addQuestion = function (id, question, answer) {
 		var item = {};
