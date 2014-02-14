@@ -91,7 +91,31 @@ var AM = window.AM || {};
 		}
 	};
 
-	AM.questionReview = function () {
+	AM.questionLevelsReset = function () {
+        var bResetConfirmed = confirm('Reset all question levels?');
+		if (bResetConfirmed === true) {
+            var i,
+                qid,
+                newID,
+                level,
+                HTML = '',
+                QA;
+
+            for (i = 0; i < localStorage.length; i = i + 1) {
+                qid = parseInt(localStorage.key(i).split('question-').join(''), 10);
+                level = AM.getLevelFromID(qid);
+                QA = JSON.parse(localStorage.getItem('question-' + qid));
+                if (level > 0) {
+                    newID = qid - (level * 10000000000000);
+                    AM.addQuestion(newID, QA.Q, QA.A);
+                    localStorage.removeItem('question-' + qid);
+                }
+            }
+            AM.questionReview();
+        }
+	};
+
+    AM.questionReview = function () {
 		var i,
 			qid,
 			level,

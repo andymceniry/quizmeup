@@ -40,7 +40,7 @@
 
 		
 		<div class="page cf" id="page-quiz-answer">
-			<h1>QUIZ ME UP 3</h1>
+			<h1>QUIZ ME UP</h1>
 			<div class="quiz-question-question-holder"></div>
 			<div class="quiz-question-answer-holder"></div>
 			<div class="holder">
@@ -58,8 +58,27 @@
 
 		<div class="page cf" id="page-quiz-done">
 			<h1>QUIZ OVERVIEW</h1>
-			<div id="quiz-review-holder">
+			<div id="quiz-review-holder"></div>
+			<div class="movetobottom">
+				<div class="holder">
+					<p class="jslink" data-target-func="questionLevelsReset">reset question levels</p>
+				</div>
+				<div class="button" data-target-ref="home">RETURN TO MENU</div>
 			</div>
+		</div>
+
+
+		<div class="page cf" id="page-question-add">
+			<h1>ADD QUESTION</h1>
+			<div class="holder textareaholder">
+				<p><label for="question-text-add">Question:</label>
+				<textarea id="question-text-add"></textarea></p>
+			</div>
+			<div class="holder textareaholder">
+				<p><label for="answer-text-add">Answer:</label>
+				<textarea id="answer-text-add"></textarea></p>
+			</div>
+			<div class="button" data-target-func="questionCreate">SAVE QUESTION</div>
 			<div class="movetobottom">
 				<div class="button" data-target-ref="home">RETURN TO MENU</div>
 			</div>
@@ -87,25 +106,8 @@
 				<div class="button" data-target-ref="home">RETURN TO MENU</div>
 			</div>	
 		</div>
-
-
-		<div class="page cf" id="page-question-add">
-			<h1>ADD QUESTION</h1>
-			<div class="holder textareaholder">
-				<p><label for="question-text-add">Question:</label>
-				<textarea id="question-text-add"></textarea></p>
-			</div>
-			<div class="holder textareaholder">
-				<p><label for="answer-text-add">Answer:</label>
-				<textarea id="answer-text-add"></textarea></p>
-			</div>
-			<div class="button" data-target-func="questionCreate">SAVE QUESTION</div>
-			<div class="movetobottom">
-				<div class="button" data-target-ref="home">RETURN TO MENU</div>
-			</div>
-		</div>
-
-
+		
+		
 		<div class="page cf" id="page-question-edit">
 			<h1>EDIT QUESTION</h1>
 			<div class="holder textareaholder">

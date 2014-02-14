@@ -21,7 +21,8 @@ h1 { width:100%; left:0; top:20px; text-align:center; }
 /*  LINK  */
 .faxulink { cursor:hover; }
 
-
+/*  HOLDERS  */
+.movetobottom { width:100%; }
 
 /*  FORMS  */
 .inputholder { margin:10px 0; }
