@@ -93,6 +93,10 @@
 			</div>
 			<div class="button" data-target-func="processSearch">FIND QUESTIONS</div>
 			<div class="movetobottom">
+				<div class="buttonholder2 cf">
+					<div class="button" data-target-func="questionImport">IMPORT</div>
+					<div class="button" data-target-func="questionExport">EXPORT</div>
+				</div>
 				<div class="button" data-target-ref="home">RETURN TO MENU</div>
 			</div>
 		</div>
@@ -110,6 +114,7 @@
 		
 		<div class="page cf" id="page-question-edit">
 			<h1>EDIT QUESTION</h1>
+			<input type="hidden" id="ts-text-edit"/>
 			<div class="holder textareaholder">
 				<p><label for="question-text-edit">Question:</label>
 				<textarea id="question-text-edit"></textarea></p>

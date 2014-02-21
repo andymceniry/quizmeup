@@ -107,7 +107,7 @@ var AM = window.AM || {};
                 QA = JSON.parse(localStorage.getItem('question-' + qid));
                 if (level > 0) {
                     newID = qid - (level * 10000000000000);
-                    AM.addQuestion(newID, QA.Q, QA.A);
+                    AM.addQuestion(newID, QA.Q, QA.A, QA.T, QA.S);
                     localStorage.removeItem('question-' + qid);
                 }
             }
@@ -161,11 +161,12 @@ var AM = window.AM || {};
 		var QA = {};
 		QA.Q = $('#question-text-edit').val();
 		QA.A = $('#answer-text-edit').val();
+		QA.T = $('#ts-text-edit').val();
 		if (QA.Q === '' || QA.A === '') {
 			alert('Need question & answer filled in');
 			return false;
 		}
-		AM.addQuestion(AM.currentEditQID, QA.Q, QA.A);
+		AM.addQuestion(AM.currentEditQID, QA.Q, QA.A, QA.T);
 		AM.showPage('home');
 	};
 
@@ -211,6 +212,7 @@ var AM = window.AM || {};
 				q = JSON.parse(localStorage.getItem('question-' + qid));
 			$('#question-text-edit').val(q.Q);
 			$('#answer-text-edit').val(q.A);
+			$('#ts-text-edit').val(q.T);
 			AM.currentEditQID = qid;
 			AM.showPage('question-edit');
 		});
@@ -255,7 +257,7 @@ var AM = window.AM || {};
 			level = AM.getLevelFromID(oldID),
 			newID = (10000000000000 * (level + 1)) + (new Date()).getTime();
 		localStorage.removeItem('question-' + oldID);
-		AM.addQuestion(newID, QA.Q, QA.A);
+		AM.addQuestion(newID, QA.Q, QA.A, QA.T, QA.S);
 		AM.currentQuestion = AM.currentQuestion + 1;
 	};
 
@@ -264,15 +266,37 @@ var AM = window.AM || {};
 			QA = AM.questions[oldID],
 			newID = (new Date()).getTime();
 		localStorage.removeItem('question-' + oldID);
-		AM.addQuestion(newID, QA.Q, QA.A);
+		AM.addQuestion(newID, QA.Q, QA.A, QA.T, QA.S);
 		AM.currentQuestion = AM.currentQuestion + 1;
 	};
 
-	AM.addQuestion = function (id, question, answer) {
+	AM.addQuestion = function (id, question, answer, ts, uptodate) {
 		var item = {};
 		item.Q = question;
 		item.A = answer;
+		if (ts === undefined) {
+			ts = (new Date()).getTime() - 1392971679400;
+		}
+		item.T = ts;
+		if (uptodate === undefined) {
+			uptodate = 'N';
+		}
+		item.S = uptodate;
 		localStorage.setItem('question-' + id, JSON.stringify(item));
+	};
+	
+	AM.questionExport = function () {
+		var i,
+			questions = [],
+			exportJSON;
+		for (i = 0; i < localStorage.length; i = i + 1) {
+			var f = JSON.parse(localStorage.getItem(localStorage.key(i)));
+			if (f.S === 'N') {
+				questions.push(f);
+			}
+		}
+		exportJSON = JSON.stringify(questions);
+		console.log(exportJSON);
 	};
 
 	AM.getLevelFromID = function (id) {
