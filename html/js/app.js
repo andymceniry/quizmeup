@@ -92,15 +92,14 @@ var AM = window.AM || {};
 	};
 
 	AM.questionLevelsReset = function () {
-        var bResetConfirmed = confirm('Reset all question levels?');
+        var i,
+            qid,
+            newID,
+            level,
+            HTML = '',
+            QA,
+            bResetConfirmed = confirm('Reset all question levels?');
 		if (bResetConfirmed === true) {
-            var i,
-                qid,
-                newID,
-                level,
-                HTML = '',
-                QA;
-
             for (i = 0; i < localStorage.length; i = i + 1) {
                 qid = parseInt(localStorage.key(i).split('question-').join(''), 10);
                 level = AM.getLevelFromID(qid);
@@ -194,14 +193,16 @@ var AM = window.AM || {};
 		AM.searchResults = [];
 		$('#question-search-results-holder').html('');
 		for (iLoop = 0; iLoop < localStorage.length; iLoop = iLoop + 1) {
-			QA = JSON.parse(localStorage.getItem(localStorage.key(iLoop)));
-			Q2 = QA.Q.toLowerCase().split(searchCriteria);
-			A2 = QA.A.toLowerCase().split(searchCriteria);
-			if (Q2.length > 1 || A2.length > 1) {
-				qid = parseInt(localStorage.key(iLoop).split('question-').join(''), 10);
-				AM.searchResults.push(QA);
-				HTML = HTML + '<div class="question-search-results-item" data-qid="' + qid + '">' + QA.Q + '</div>';
-			}
+            if (localStorage.key(iLoop).substr(0, 9) === 'question-') {
+                QA = JSON.parse(localStorage.getItem(localStorage.key(iLoop)));
+                Q2 = QA.Q.toLowerCase().split(searchCriteria);
+                A2 = QA.A.toLowerCase().split(searchCriteria);
+                if (Q2.length > 1 || A2.length > 1) {
+                    qid = parseInt(localStorage.key(iLoop).split('question-').join(''), 10);
+                    AM.searchResults.push(QA);
+                    HTML = HTML + '<div class="question-search-results-item" data-qid="' + qid + '">' + QA.Q + '</div>';
+                }
+            }
 		}
         if (HTML === '') {
             HTML = HTML + '<div class="holder"><p>No questions found macthing "' + searchCriteria + '"</p></div>';
@@ -284,20 +285,88 @@ var AM = window.AM || {};
 		item.S = uptodate;
 		localStorage.setItem('question-' + id, JSON.stringify(item));
 	};
-	
-	AM.questionExport = function () {
+
+	AM.questionImport = function () {
+		var lastimportts = localStorage.getItem('lastimportts'),
+            importURL = 'http://local.isig.co.uk/api/quiz/questions/listupdatedsince/';
+        if (!lastimportts) {
+            lastimportts = 0;
+        }
+        importURL = importURL + lastimportts;
+        $.ajax({
+            url: importURL,
+            type: 'GET',
+            success: function (res) {
+                res = JSON.parse(res);
+                if (res.result !== undefined && res.result === 'success' && res.data !== undefined) {
+                    AM.allQuestionsImportedOK(res.data);
+                }
+                //localStorage.setItem('lastimport', (new Date()).getTime());
+            }
+        });
+	};
+
+    AM.allQuestionsImportedOK = function (data) {
 		var i,
-			questions = [],
-			exportJSON;
+            j,
+            question,
+            insertedIDs = [];
 		for (i = 0; i < localStorage.length; i = i + 1) {
-			var f = JSON.parse(localStorage.getItem(localStorage.key(i)));
-			if (f.S === 'N') {
-				questions.push(f);
+			question = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            for (j = 0; j < data.length; j = j + 1) {
+                if (question.T !== data[j].T && insertedIDs.indexOf(data[j].T) < 0) {
+                    insertedIDs.push(data[j].T);
+                    AM.addQuestion(j, data[j].Q, data[j].A, data[j].T, 'Y');
+                }
+            }
+		}
+        localStorage.setItem('lastimportts', (new Date()).getTime());
+    };
+
+    AM.questionExport = function () {
+		var i,
+            question,
+			questions = [],
+			exportJSON,
+            exportURL,
+            exportData;
+		for (i = 0; i < localStorage.length; i = i + 1) {
+			question = JSON.parse(localStorage.getItem(localStorage.key(i)));
+			if (question.S === 'N') {
+				questions.push(question);
 			}
 		}
 		exportJSON = JSON.stringify(questions);
-		console.log(exportJSON);
+        exportURL = 'http://local.isig.co.uk/api/quiz/questions/add';
+        exportData = {data: exportJSON };
+        $.ajax({
+            url: exportURL,
+            type: 'POST',
+            data: exportData,
+            success: function (res) {
+                res = JSON.parse(res);
+                if (res.result !== undefined && res.result === 'success') {
+                    AM.allQuestionsExportedOK();
+                }
+            }
+        });
 	};
+
+
+    AM.allQuestionsExportedOK = function () {
+		var i,
+            question,
+            qid;
+		for (i = 0; i < localStorage.length; i = i + 1) {
+			question = JSON.parse(localStorage.getItem(localStorage.key(i)));
+			if (question.S === 'N') {
+                qid = localStorage.key(i).split('question-').join('');
+                localStorage.removeItem(localStorage.key(i));
+                AM.addQuestion(qid, question.Q, question.A, question.T, 'Y');
+			}
+		}
+    };
+
 
 	AM.getLevelFromID = function (id) {
 		if (id < 10000000000000) {
