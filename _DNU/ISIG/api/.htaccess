@@ -1,0 +1,12 @@
+
+##  START REWRITE RULES
+RewriteEngine On
+#Options -MultiViews
+
+
+
+##  API STUFF
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)[/]?$ /api/api.php?a=$1&c=$2&m=$3 [L,QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)[/]?$ /api/api.php?a=$1&c=$2&m=$3&p=$4 [L,QSA]
+##  i.e. isig.co.uk/api/{app}/{class}/{method}/{params}
+##  e.g. isig.co.uk/api/quiz/questions/listsinceupdate/120549
