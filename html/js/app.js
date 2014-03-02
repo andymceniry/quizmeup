@@ -283,12 +283,13 @@ var AM = window.AM || {};
 			uptodate = 'N';
 		}
 		item.S = uptodate;
+        console.log('adding question '+id,  JSON.stringify(item));
 		localStorage.setItem('question-' + id, JSON.stringify(item));
 	};
 
 	AM.questionImport = function () {
 		var lastimportts = localStorage.getItem('lastimportts'),
-            importURL = 'http://local.isig.co.uk/api/quiz/questions/listupdatedsince/';
+            importURL = 'http://www.isig.co.uk/api/quiz/questions/listupdatedsince/';
         if (!lastimportts) {
             lastimportts = 0;
         }
@@ -337,7 +338,7 @@ var AM = window.AM || {};
 			}
 		}
 		exportJSON = JSON.stringify(questions);
-        exportURL = 'http://local.isig.co.uk/api/quiz/questions/add';
+        exportURL = 'http://www.isig.co.uk/api/quiz/questions/add';
         exportData = {data: exportJSON };
         $.ajax({
             url: exportURL,
