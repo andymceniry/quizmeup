@@ -344,7 +344,7 @@ var AM = window.AM || {};
             url: exportURL,
             type: 'POST',
             data: exportData,
-            success: function (res) {
+            success: function (res) { console.log(res);
                 res = JSON.parse(res);
                 if (res.result !== undefined && res.result === 'success') {
                     AM.allQuestionsExportedOK();
