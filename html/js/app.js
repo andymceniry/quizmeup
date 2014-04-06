@@ -2,12 +2,6 @@
 
 var AM = window.AM || {};
 
-//var item = {};
-//item.Q = 'What is the capital of Spain?';
-//item.A = 'Madrid';
-//localStorage.setItem('question-13567', JSON.stringify(item));
-
-
 (function () {
 
 	'use strict';
@@ -98,17 +92,25 @@ var AM = window.AM || {};
             level,
             HTML = '',
             QA,
+            lsTemp = [],
             bResetConfirmed = confirm('Reset all question levels?');
 		if (bResetConfirmed === true) {
             for (i = 0; i < localStorage.length; i = i + 1) {
-                qid = parseInt(localStorage.key(i).split('question-').join(''), 10);
-                level = AM.getLevelFromID(qid);
-                QA = JSON.parse(localStorage.getItem('question-' + qid));
-                if (level > 0) {
+                if (localStorage.key(i).substr(0, 9) === 'question-') {
+                    qid = parseInt(localStorage.key(i).split('question-').join(''), 10);
+                    level = AM.getLevelFromID(qid);
+                    QA = JSON.parse(localStorage.getItem('question-' + qid));
+                    if (level > 0) {
+                        lsTemp[qid] = level;
+                    }
+                }
+            }
+            for (qid in lsTemp) {
+                    level = lsTemp[qid];
+                    QA = JSON.parse(localStorage.getItem('question-' + qid));
                     newID = qid - (level * 10000000000000);
                     AM.addQuestion(newID, QA.Q, QA.A, QA.T, QA.S);
-                    localStorage.removeItem('question-' + qid);
-                }
+                    localStorage.removeItem('question-' + qid);                
             }
             AM.questionReview();
         }
@@ -124,9 +126,11 @@ var AM = window.AM || {};
 			AM.questionLevels[i] = 0;
 		}
 		for (i = 0; i < localStorage.length; i = i + 1) {
-			qid = parseInt(localStorage.key(i).split('question-').join(''), 10);
-			level = AM.getLevelFromID(qid);
-			AM.questionLevels[level] = AM.questionLevels[level] + 1;
+            if (localStorage.key(i).substr(0, 9) === 'question-') {
+                qid = parseInt(localStorage.key(i).split('question-').join(''), 10);
+                level = AM.getLevelFromID(qid);
+                AM.questionLevels[level] = AM.questionLevels[level] + 1;
+            }
 		}
 		for (i = 0; i <= 10; i = i + 1) {
 			if (AM.questionLevels[i] > 0) {
@@ -222,14 +226,18 @@ var AM = window.AM || {};
 
 	AM.prepareTest = function () {
 		var i,
+            iQ = 0,
 			qid,
 			item = {};
 		AM.questions = [];
 		AM.questionIDs = [];
 		for (i = 0; i < localStorage.length; i = i + 1) {
-			qid = parseInt(localStorage.key(i).split('question-').join(''), 10);
-			AM.questions[qid] = JSON.parse(localStorage.getItem(localStorage.key(i)));
-			AM.questionIDs[i] = qid;
+            if (localStorage.key(i).substr(0,9) == 'question-') {
+                qid = parseInt(localStorage.key(i).split('question-').join(''), 10);
+                AM.questions[qid] = JSON.parse(localStorage.getItem(localStorage.key(i)));
+                AM.questionIDs[iQ] = qid;
+                iQ = iQ + 1;
+            }
 		}
         if (AM.questionIDs.length < 1) {
             item.Q = 'What is the capital of Spain?';
@@ -240,7 +248,7 @@ var AM = window.AM || {};
         }
 		AM.questionIDs.sort(function (a, b) {return a - b; });
 		AM.currentQuestion = 0;
-		AM.totalQuestions = i;
+        AM.totalQuestions = AM.questionIDs.length;
 	};
 
 
@@ -283,7 +291,6 @@ var AM = window.AM || {};
 			uptodate = 'N';
 		}
 		item.S = uptodate;
-        console.log('adding question '+id,  JSON.stringify(item));
 		localStorage.setItem('question-' + id, JSON.stringify(item));
 	};
 
@@ -302,7 +309,6 @@ var AM = window.AM || {};
                 if (res.result !== undefined && res.result === 'success' && res.data !== undefined) {
                     AM.allQuestionsImportedOK(res.data);
                 }
-                //localStorage.setItem('lastimport', (new Date()).getTime());
             }
         });
 	};
@@ -344,7 +350,7 @@ var AM = window.AM || {};
             url: exportURL,
             type: 'POST',
             data: exportData,
-            success: function (res) { console.log(res);
+            success: function (res) { 
                 res = JSON.parse(res);
                 if (res.result !== undefined && res.result === 'success') {
                     AM.allQuestionsExportedOK();
